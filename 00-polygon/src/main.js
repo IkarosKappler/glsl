@@ -43,21 +43,6 @@ window.addEventListener('load',function() {
     gl.bindBuffer(gl.ARRAY_BUFFER, null);
 
     /*=================== Shaders ====================*/
-
-    // Vertex shader source code
-    /* var vertCode =
-        'attribute vec3 coordinates;' +
-        'void main(void) {' +
-        ' gl_Position = vec4(coordinates, 1.0);' +
-        '}'; */
-    /* var vertCode = `
-precision mediump float;
-
-    attribute vec2 position;
-
-void main(void) {
-  gl_Position = vec4(position.x, position.y, 0.0, 1.0);
-}`; */
     var vertCode = `
 precision mediump float;
 
@@ -151,7 +136,7 @@ void main(void) {
     // Enable the attribute
     gl.enableVertexAttribArray(coord);
 
-    /*============ Drawing the triangle =============*/
+    /*============ Drawing the polygon =============*/
 
     function renderScene() {
 	
@@ -175,7 +160,7 @@ void main(void) {
 	currentRotation[1] = Math.cos(radians);
 	gl.uniform2fv(uRotationVector, currentRotation);
 
-	// Draw the triangle
+	// Draw the polygon
 	gl.drawArrays(gl.LINE_LOOP, 0, vertices.length/3);
 	// POINTS, LINE_STRIP, LINE_LOOP, LINES,
 	// TRIANGLE_STRIP,TRIANGLE_FAN, TRIANGLES
