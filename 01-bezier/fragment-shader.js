@@ -2,7 +2,9 @@
 var fragCode = `
     precision highp float;
 
+    uniform vec4 uFragColor;
+
     void main(void) {
-	gl_FragColor = vec4(0.0,0.75,1.0,1.0);
+	gl_FragColor = uFragColor; // vec4(0.0,0.75,1.0,1.0);
     }
 `;

@@ -43,7 +43,6 @@ window.addEventListener('load',function() {
     const bhandles = arr2f32arr( bezier );
 
     /*======= Creating a canvas =========*/
-
     var canvas = document.getElementById('my_canvas');
     var gl = canvas.getContext('webgl');
 
@@ -61,7 +60,7 @@ window.addEventListener('load',function() {
     }
     var handle_buffer = bufferData( bhandles );
     var segment_buffer = bufferData( segments );
-
+    // var color_buffer = bufferData( color );
 
     /*=================== Shaders ====================*/
     function compileShader( shaderCode, type ) {
@@ -115,14 +114,21 @@ window.addEventListener('load',function() {
     // Set the view port
     gl.viewport(0,0,canvas.width,canvas.height);
 
-    function drawLines( buffer, num_verts, mode ) {
+    // Get the attribute location
+    var coord = gl.getAttribLocation(program, "position");
+    // Enable the attribute
+    gl.enableVertexAttribArray(coord);
+    // at init time
+    var fColorLocation = gl.getUniformLocation(program, "uFragColor");
+
+    function drawLines( buffer, num_verts, color, mode ) {
 	gl.bindBuffer(gl.ARRAY_BUFFER, buffer);	
-	// Get the attribute location
-	var coord = gl.getAttribLocation(program, "position");
+	
 	// Point an attribute to the currently bound VBO
 	gl.vertexAttribPointer(coord, 3, gl.FLOAT, false, 0, 0);
-	// Enable the attribute
-	gl.enableVertexAttribArray(coord);
+	// Set color at render time
+	gl.uniform4f(fColorLocation, color[0], color[1], color[2], color[3] ); 
+	
 	gl.drawArrays(mode, 0, num_verts);
     }
 
@@ -142,8 +148,8 @@ window.addEventListener('load',function() {
 	currentRotation[1] = Math.cos(radians);
 	gl.uniform2fv(uRotationVector, currentRotation);
 
-	drawLines( handle_buffer, bhandles.length/3, gl.LINE_STRIP );
-	drawLines( segment_buffer, segments.length/3, gl.LINE_STRIP );
+	drawLines( handle_buffer, bhandles.length/3, [0.0, 0.75, 1.0, 1.0], gl.LINE_STRIP );
+	drawLines( segment_buffer, segments.length/3, [1.0, 0.33, 0.0, 1.0], gl.LINE_STRIP );
 	
 	// Draw the curve
 	//gl.drawArrays(gl.LINE_STRIP, 0, vertices.length/3);
