@@ -148,14 +148,15 @@ window.addEventListener('load',function() {
 	currentRotation[1] = Math.cos(radians);
 	gl.uniform2fv(uRotationVector, currentRotation);
 
+	// Draw the handles
 	drawLines( handle_buffer, bhandles.length/3, [0.0, 0.75, 1.0, 1.0], gl.LINE_STRIP );
-	drawLines( segment_buffer, segments.length/3, [1.0, 0.33, 0.0, 1.0], gl.LINE_STRIP );
-	
 	// Draw the curve
-	//gl.drawArrays(gl.LINE_STRIP, 0, vertices.length/3);
+	drawLines( segment_buffer, segments.length/3, [1.0, 0.33, 0.0, 1.0], gl.LINE_STRIP );
+
 	// POINTS, LINE_STRIP, LINE_LOOP, LINES,
 	// TRIANGLE_STRIP,TRIANGLE_FAN, TRIANGLES
 
+	// For animations we would use this
 	/* window.requestAnimationFrame(function(currentTime) {
 	    let deltaAngle = ((currentTime - previousTime) / 1000.0)
 		* degreesPerSecond;
