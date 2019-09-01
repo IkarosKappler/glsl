@@ -19,3 +19,7 @@ This basic example shows how to render Bézier splines.
 ## Example 3: Render line paths with thickness
 Refactoring the previous example code into a utility class and using this to render thick lines.
 ...work in progres...
+https://www.int2byte.de/public/glsl/02-line-thickness/main.html
+
+![Line Thickness](/02-line-thickness/screenshot.png)
+
